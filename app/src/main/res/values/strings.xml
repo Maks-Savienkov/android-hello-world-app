@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">hello-world-app</string>
+    <string name="text_activity_1">Hello World!</string>
+    <string name="start">start</string>
+</resources>
