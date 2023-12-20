@@ -1,18 +1,28 @@
 package edu.cdu.ua.MaksymSavienkov.hello_world_app
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var vm: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
 
-    fun changeToCaps(view: View) {
         val textView = findViewById<TextView>(R.id.text_view)
-        textView.text = textView.text.toString().uppercase()
+        val startButton = findViewById<Button>(R.id.button_send)
+
+        vm = ViewModelProvider(this, MainViewModelFactory(this))[MainViewModel::class.java]
+
+        vm.fieldLive.observe(this) { text ->
+            textView.text = text
+        }
+
+        startButton.setOnClickListener {
+            vm.changeToCaps()
+        }
     }
 }
